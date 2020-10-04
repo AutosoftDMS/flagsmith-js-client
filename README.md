@@ -28,7 +28,7 @@ React Native:
 ```javascript
 import bulletTrain from "bullet-train-client or react-native-bullet-train"; //Add this line if you're using bulletTrain via npm
 
-bulletTrain.identify("bullet_train_sample_user");
+bulletTrain.identify("bullet_train_sample_user", {email:"bullet-train-example@bullet-train.io"});
 
 bulletTrain.init({
     environmentID:"<YOUR_ENVIRONMENT_KEY>",
@@ -81,7 +81,7 @@ bulletTrain.init({
 | ```startListening(ticks=1000)```     | Poll the api for changes every x milliseconds
 | ```stopListening()```     | Stop polling the api
 | ```getFlags()```     | Trigger a manual fetch of the environment features, if a user is identified it will fetch their features
-| ```identify(userId)```     | Identify as a user, this will create a user for your environment in the dashboard if they don't exist, it will also trigger a call to ```getFlags()```
+| ```identify(userId, traits)```     | Identify as a user with optional initial traits, this will create a user for your environment in the dashboard if they don't exist, it will also trigger a call to ```getFlags()```
 | ```logout()```     | Stop identifying as a user, this will trigger a call to ```getFlags()```
 
 ## Notes on initialisation

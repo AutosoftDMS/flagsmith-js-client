@@ -93,7 +93,12 @@ const BulletTrain = class {
 
         if (identity) {
             return Promise.all([
-                this.getJSON(api + 'identities/?identifier=' + encodeURIComponent(identity)),
+                typeof this.identifyTraits== 'object' ?
+                    this.getJSON(api + 'identities/?identifier=' + encodeURIComponent(identity), "POST", JSON.stringify({
+                        identifier: this.identity,
+                        traits: this.getTraitsBody(this.identity, this.identifyTraits)
+                    })) :
+                    this.getJSON(api + 'identities/?identifier=' + encodeURIComponent(identity)),
             ])
                 .then((res) => {
                     handleResponse(res[0], res[1])
@@ -190,8 +195,9 @@ const BulletTrain = class {
         return this.flags;
     }
 
-    identify(userId) {
+    identify(userId, traits) {
         this.identity = userId;
+        this.identifyTraits = traits;
         if (this.initialised && !this.interval) {
             return this.getFlags();
         }
@@ -299,6 +305,18 @@ const BulletTrain = class {
                 }
             })
     };
+
+    getTraitsBody = (identity, traits) => {
+
+        const body = Object.keys(traits).map((key) => (
+            {
+                "trait_key": key,
+                "trait_value": traits[key]
+            }
+        ))
+
+        return body
+    }
 
     setTraits = (traits) => {
         const { getJSON, identity, api } = this;

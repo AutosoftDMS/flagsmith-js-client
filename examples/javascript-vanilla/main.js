@@ -1,4 +1,4 @@
-var environmentID = 'uCDQzKWgejrutqSYYsKWen'
+var environmentID = '8KzETdDeMY7xkqkSkY3Gsg'
 
 function identify() {
     bulletTrain.identify("bullet_train_sample_user")
@@ -9,7 +9,8 @@ function toggleTrait () {
 }
 
 function login () {
-    bulletTrain.identify("bullet_train_sample_user");
+    debugger
+    bulletTrain.identify("bullet_train_sample_user", {email:"bullet-train-example@bullet-train.io"});
 };
 
 function logout () {
