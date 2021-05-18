@@ -1723,13 +1723,10 @@
             });
           };
 
-          return a ? Promise.all([n.getJSON(s + "identities/?identifier=" + encodeURIComponent(a))]).then(function (e) {
-            c(e[0], e[1]);
+          return a ? Promise.all([n.getJSON(s + "identities/?identifier=" + encodeURIComponent(a))]).then(function (t) {
+            c(t[0], t[1]), e && !u && (u = !0, e());
           }).catch(function (e) {
-            var t = e.message;
-            o && o({
-              message: t
-            });
+            t && !u && (u = !0, t(e)), o && o(e);
           }) : Promise.all([n.getJSON(s + "flags/")]).then(function (t) {
             c({
               flags: t[0]

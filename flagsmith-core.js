@@ -92,9 +92,17 @@ const Flagsmith = class {
                 this.getJSON(api + 'identities/?identifier=' + encodeURIComponent(identity)),
             ])
                 .then((res) => {
-                    handleResponse(res[0], res[1])
-                }).catch(({ message }) => {
-                    onError && onError({ message })
+                    handleResponse(res[0], res[1]);
+                    if (resolve && !resolved) {
+                        resolved = true;
+                        resolve();
+                    }
+                }).catch((err) => {
+                    if (reject && !resolved) {
+                        resolved = true;
+                        reject(err);
+                    }
+                    onError && onError(err);
                 });
         } else {
             return Promise.all([
